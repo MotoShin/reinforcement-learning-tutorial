@@ -4,15 +4,26 @@ Simulator : exec()
 
 class Agent
 Agent : act()
+Agent : reset()
 Agent : update_policy()
+Agent : update_behavior_policy()
+Agent : get_agent_name()
+Agent : set_start_state()
 
 class Environment
 Environment : step()
 Environment : reset()
+Environment : get_start_state()
+Environment : get_all_field_state_num()
+Environment : get_action_num()
+Environment : get_all_step_num()
 
 class LearningMethod
 LearningMethod : TargetPolicy
+LearningMethod : reset()
 LearningMethod : update()
+LearningMethod : update_behavior_policy()
+LearningMethod : get_learning_method_name()
 
 class BehaviorPolicy
 BehaviorPolicy : reset()
@@ -23,6 +34,7 @@ TargetPolicy : Q-value
 TargetPolicy : BehaviorPolicy
 TargetPolicy : reset()
 TargetPolicy : choose()
+TargetPolicy : update_behavior_policy()
 
 Simulator "1" o-- "1..*" Agent
 Simulator "1" *-- "1" Environment

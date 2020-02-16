@@ -27,7 +27,7 @@ class EpsilonGreedyTargetPolicy:
         self.q_values = np.array([np.zeros(self.all_action_num) for _ in range(self.all_state_num)])
         self.behavior_policy.reset()
 
-    def update_behavior_polocy(self) -> None:
+    def update_behavior_policy(self) -> None:
         """
         挙動方策のパラメータの更新
         :return: None

@@ -43,7 +43,7 @@ class QLearning(BaseLearningMethod):
         self.target_policy.q_values[current_state, action] += self.ALPHA * td_error
 
     def update_behavior_policy(self) -> None:
-        self.target_policy.update_behavior_polocy()
+        self.target_policy.update_behavior_policy()
 
     def get_learning_method_name(self) -> str:
         return self.learning_method_name
