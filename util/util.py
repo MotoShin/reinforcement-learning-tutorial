@@ -10,6 +10,9 @@ plt.switch_backend('agg')
 
 
 def df_to_numpy(data) -> dict:
+    """
+    pandasのデータからnumpyのデータに変換する
+    """
     columns = list(data.columns)
     # np.arrayに変換
     numpy_data = np.array(data.values.flatten())
@@ -102,6 +105,9 @@ class Util(object):
 
     @staticmethod
     def output_image(file_name: str) -> None:
+        """
+        画像を作るメソッド
+        """
         sns.set()
         data = pd.read_csv("output/result/{}.csv".format(file_name))
         name_and_data = df_to_numpy(data)
