@@ -1,7 +1,11 @@
 import configparser
 import csv
 import os
+import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
+
+plt.switch_backend('agg')
 
 
 class Util(object):
@@ -73,3 +77,8 @@ class Util(object):
                 writer.writerow(keys)
                 for line in all_data:
                     writer.writerow(line)
+
+    @staticmethod
+    def output_image(file_name: str) -> None:
+        data = pd.read_csv("output/result/" + file_name)
+        # TODO: 画像作るコード書く
