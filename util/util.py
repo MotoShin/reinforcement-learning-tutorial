@@ -4,14 +4,36 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import seaborn as sns
 
 plt.switch_backend('agg')
+
+
+def df_to_numpy(data) -> dict:
+    columns = list(data.columns)
+    # np.arrayに変換
+    numpy_data = np.array(data.values.flatten())
+    # numpy_dataの形を、pandaで読み込んだデータフレームの形に変形する
+    numpy_array = np.reshape(numpy_data, (data.shape[0], data.shape[1]))
+    numpy_array = np.rot90(numpy_array, k=-1)
+    numpy_array = np.flip(numpy_array, axis=1)
+
+    data_dict = {}
+    for i in range(len(columns)):
+        if columns[i] == "Unnamed: 0":
+            numpy_array[i] = numpy_array[i] + 1
+            data_dict.update({"times": numpy_array[i]})
+        else:
+            data_dict.update({columns[i]: numpy_array[i]})
+
+    return data_dict
 
 
 class Util(object):
     """
     便利な関数書くクラス
     """
+
     @staticmethod
     def display_progress(simulations_number: int, display_simulation_number: int, algorithm_name: str):
         """
@@ -80,5 +102,17 @@ class Util(object):
 
     @staticmethod
     def output_image(file_name: str) -> None:
-        data = pd.read_csv("output/result/" + file_name)
-        # TODO: 画像作るコード書く
+        sns.set()
+        data = pd.read_csv("output/result/{}.csv".format(file_name))
+        name_and_data = df_to_numpy(data)
+        fig = plt.figure(figsize=(8, 5.5))
+        ax = fig.add_subplot(111)
+
+        for name in name_and_data.keys():
+            ax.plot(name_and_data.get(name), label=name)
+        ax.set_xlabel("Episode")
+        ax.set_ylabel(file_name)
+        plt.legend(frameon=False)
+
+        fig.savefig("output/images/{}.png".format(file_name))
+        plt.close()
