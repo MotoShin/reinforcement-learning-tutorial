@@ -6,7 +6,4 @@
 |---|---|
 |OS|macOS Mojave 10.14.6|
 |python|3.7.3|
-|package|numpy|
-|^|matplotlib|
-|^|pandas|
-|^|seaborn|
+|package|numpy <br> matplotlib <br> pandas <br> seaborn|
