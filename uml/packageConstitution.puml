@@ -1,0 +1,32 @@
+@startuml
+class Simulator
+Simulator : exec()
+
+class Agent
+Agent : act()
+Agent : update_policy()
+
+class Environment
+Environment : step()
+Environment : reset()
+
+class LearningMethod
+LearningMethod : TargetPolicy
+LearningMethod : update()
+
+class BehaviorPolicy
+BehaviorPolicy : reset()
+BehaviorPolicy : choose(ary)
+
+class TargetPolicy
+TargetPolicy : Q-value
+TargetPolicy : BehaviorPolicy
+TargetPolicy : reset()
+TargetPolicy : choose()
+
+Simulator "1" o-- "1..*" Agent
+Simulator "1" *-- "1" Environment
+Agent "1" *-- "1" LearningMethod
+LearningMethod "1" *.. "1" TargetPolicy
+TargetPolicy "1..*" *.. "1" BehaviorPolicy
+@enduml
