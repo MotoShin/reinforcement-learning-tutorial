@@ -29,6 +29,7 @@ class Sarsa(BaseLearningMethod):
                action: int,
                reward: float,
                next_state: int) -> None:
+        # 自身の挙動方策に従って次状態の行動を選択する
         next_action = self.target_policy.choose(next_state)
         # TD誤差の導出
         td_error = \

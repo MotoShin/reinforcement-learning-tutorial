@@ -32,6 +32,7 @@ class QLearning(BaseLearningMethod):
                action: int,
                reward: float,
                next_state: int) -> None:
+        # 次状態の行動の中でq値が最大のものを取得
         q_values = self.target_policy.q_values[next_state]
         next_action = np.random.choice(np.where(q_values == max(q_values))[0])
         # TD誤差の導出
@@ -42,7 +43,7 @@ class QLearning(BaseLearningMethod):
         self.target_policy.q_values[current_state, action] += self.ALPHA * td_error
 
     def update_behavior_policy(self) -> None:
-        self.target_policy.behavior_policy.update_epsilon()
+        self.target_policy.update_behavior_polocy()
 
     def get_learning_method_name(self) -> str:
         return self.learning_method_name

@@ -34,7 +34,6 @@ class EpsilonGreedy(object):
         :param ary: ndarray
         :return: 選択した配列のindexの値 int
         """
-        selected = None
         if random.random() < self.epsilon:
             selected = np.random.choice(np.arange(len(ary)))
         else:
