@@ -4,7 +4,7 @@ from agent.base_agent import BaseAgent
 
 class SarsaAgent(BaseAgent):
     """
-    Q学習のエージェントのクラス
+    SARSAのエージェントのクラス
     """
 
     def __init__(self, all_state_num: int, all_action_num: int):

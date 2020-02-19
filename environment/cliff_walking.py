@@ -46,7 +46,7 @@ class CliffWalking(BaseEnvironment):
         return np.where(self.isd == 1.0)[0][0]
 
     def get_all_field_state_num(self) -> int:
-        return self.ncol * self.nrow
+        return self.nS
 
     def get_action_num(self) -> int:
         return self.nA
