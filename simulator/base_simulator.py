@@ -35,13 +35,12 @@ class BaseSimulator(object):
         simulationの内容を記述するメソッド
         :return: list simulationの回数で平均されたepisode毎の報酬が格納されたlist
         """
-        sum_rewards = np.zeros(self.all_episode_number)
-        sum_steps = np.zeros(self.all_episode_number)
-
         rewards = {}
         steps = {}
         # エージェントの数だけ回すfor文
         for agent in self.agents:
+            sum_rewards = np.zeros(self.all_episode_number)
+            sum_steps = np.zeros(self.all_episode_number)
             # シミュレーションを回すfor文
             for simulation_number in range(self.all_simulate_number):
                 display_simulation_number = simulation_number + 1
