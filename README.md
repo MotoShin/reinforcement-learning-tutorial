@@ -36,7 +36,7 @@ Goalに辿り着くと報酬 13 が与えれる。
 
 つまり、崖に落ちることなくいかに最短ルートを通るということが求められるタスクである。
 
-<img src="https://user-images.githubusercontent.com/27393111/75039364-d8db5a00-54fb-11ea-933f-620a08dd71b5.png">
+<img src="https://user-images.githubusercontent.com/27393111/75039573-5010ee00-54fc-11ea-8776-632c5c89204b.png">
 
 ## 結果
 reward 軸は報酬の値で大きければ大きいほどいい
