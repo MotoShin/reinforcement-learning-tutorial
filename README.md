@@ -15,6 +15,29 @@ Q学習 (Q-Learning) と SARSA という強化学習手法を、4*4のグリッ�
 python main.py [gridWorld or cliffWalk]
 ```
 
+## タスク説明
+#### 4*4グリッドワールド
+最も単純なToyTask。
+
+左上のStartから右下のGoalまで行けばクリアとなる。
+
+Goalに辿り着くと報酬 1 を獲得できる。
+
+<img src="https://user-images.githubusercontent.com/27393111/75039313-b9443180-54fb-11ea-8c26-7ac4698263d6.png">
+
+#### 崖歩き
+Suttonの「強化学習」という本に記載されている崖歩きというタスク。
+
+グレーのところ（崖）にいってしまうとStart地点に戻されて報酬 -100 が与えれる。
+
+このタスクに関しては 1 回行動するごとに報酬 -1 が与えれる。
+
+Goalに辿り着くと報酬 13 が与えれる。
+
+つまり、崖に落ちることなくいかに最短ルートを通るということが求められるタスクである。
+
+<img src="https://user-images.githubusercontent.com/27393111/75039364-d8db5a00-54fb-11ea-933f-620a08dd71b5.png">
+
 ## 結果
 reward 軸は報酬の値で大きければ大きいほどいい
 

@@ -4,6 +4,12 @@ import numpy as np
 
 STEP_RESULT = int, float, bool
 
+"""
+S: Start
+H: Hole（落とし穴）
+F: Field（落とし穴じゃないところ）
+G: Goal
+"""
 MAP = ["SHHHHHHHHHHG",
        "FFFFFFFFFFFF",
        "FFFFFFFFFFFF",

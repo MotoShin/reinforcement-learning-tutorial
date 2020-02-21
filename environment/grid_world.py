@@ -4,6 +4,11 @@ import numpy as np
 
 STEP_RESULT = int, float, bool
 
+"""
+S: Start
+F: Field
+G: Goal
+"""
 MAP = ["SFFF",
        "FFFF",
        "FFFF",
