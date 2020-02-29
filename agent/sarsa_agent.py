@@ -12,13 +12,17 @@ class SarsaAgent(BaseAgent):
         self.start_state = None
         self.current_state = None
         self.current_action = None
+        self.memory_action = None
 
     def reset(self) -> None:
         self.current_state = self.start_state
         self.learning_method.reset()
 
     def act(self) -> int:
-        self.current_action = self.learning_method.target_policy.choose(self.current_state)
+        if self.memory_action is not None:
+            self.current_action = self.memory_action
+        else:
+            self.current_action = self.learning_method.target_policy.choose(self.current_state)
         return self.current_action
 
     def update_policy(self, reward: int, next_state: int) -> None:
@@ -27,9 +31,12 @@ class SarsaAgent(BaseAgent):
                                     reward,
                                     next_state)
         self.current_state = next_state
+        self.memory_action = self.learning_method.target_policy.choose(next_state)
 
     def update_behavior_policy(self) -> None:
         self.learning_method.update_behavior_policy()
+        self.current_state = None
+        self.memory_action = None
 
     def get_agent_name(self) -> str:
         return self.learning_method.get_learning_method_name()

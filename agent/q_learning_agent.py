@@ -30,6 +30,7 @@ class QLearningAgent(BaseAgent):
 
     def update_behavior_policy(self) -> None:
         self.learning_method.update_behavior_policy()
+        self.current_state = None
 
     def get_agent_name(self) -> str:
         return self.learning_method.get_learning_method_name()
