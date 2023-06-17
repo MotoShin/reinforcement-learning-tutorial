@@ -16,14 +16,15 @@ class QLearningAgent(BaseAgent):
         self.learning_method.reset()
 
     def act(self) -> int:
-        self.current_action = self.learning_method.target_policy.choose(self.current_state)
+        self.current_action = self.learning_method.target_policy.choose(
+            self.current_state
+        )
         return self.current_action
 
     def update_policy(self, reward: int, next_state: int) -> None:
-        self.learning_method.update(self.current_state,
-                                    self.current_action,
-                                    reward,
-                                    next_state)
+        self.learning_method.update(
+            self.current_state, self.current_action, reward, next_state
+        )
         self.current_state = next_state
 
     def update_behavior_policy(self) -> None:
@@ -35,3 +36,6 @@ class QLearningAgent(BaseAgent):
 
     def set_start_state(self, start_state: int) -> None:
         self.start_state = start_state
+
+    def get_entropy(self) -> float:
+        return self.learning_method.target_policy.get_entropy(self.current_state)

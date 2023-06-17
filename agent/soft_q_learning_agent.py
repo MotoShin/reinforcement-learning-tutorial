@@ -9,7 +9,6 @@ class SoftQLearningAgent(BaseAgent):
 
     def __init__(self, all_state_num: int, all_action_num: int):
         super().__init__()
-        self.is_own_entropy = True
         self.learning_method = SoftQLearning(all_state_num, all_action_num)
 
     def reset(self) -> None:
@@ -17,14 +16,15 @@ class SoftQLearningAgent(BaseAgent):
         self.learning_method.reset()
 
     def act(self) -> int:
-        self.current_action = self.learning_method.target_policy.choose(self.current_state)
+        self.current_action = self.learning_method.target_policy.choose(
+            self.current_state
+        )
         return self.current_action
 
     def update_policy(self, reward: int, next_state: int) -> None:
-        self.learning_method.update(self.current_state,
-                                    self.current_action,
-                                    reward,
-                                    next_state)
+        self.learning_method.update(
+            self.current_state, self.current_action, reward, next_state
+        )
         self.current_state = next_state
 
     def update_behavior_policy(self) -> None:

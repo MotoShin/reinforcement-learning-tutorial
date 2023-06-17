@@ -10,12 +10,14 @@ class GridWorldSimulator(BaseSimulator):
     def __init__(self):
         env = GridWorld()
         agents = list()
-        # agents.append(QLearningAgent(env.get_all_field_state_num(), env.get_action_num()))
-        agents.append(SoftQLearningAgent(env.get_all_field_state_num(), env.get_action_num()))
-        # agents.append(SarsaAgent(env.get_all_field_state_num(), env.get_action_num()))
+        agents.append(
+            QLearningAgent(env.get_all_field_state_num(), env.get_action_num())
+        )
+        # agents.append(SoftQLearningAgent(env.get_all_field_state_num(), env.get_action_num()))
+        agents.append(SarsaAgent(env.get_all_field_state_num(), env.get_action_num()))
         parser = Util.make_config_parser()
-        simulation_number = int(parser['BASE']['SIMULATIONS_NUMBER'])
-        episode_number = int(parser['BASE']['EPISODE'])
+        simulation_number = int(parser["BASE"]["SIMULATIONS_NUMBER"])
+        episode_number = int(parser["BASE"]["EPISODE"])
         super().__init__(env, agents, simulation_number, episode_number)
 
     def exec(self) -> EXEC_RESULT:

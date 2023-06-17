@@ -7,7 +7,6 @@ class BaseAgent(metaclass=ABCMeta):
     """
 
     def __init__(self) -> None:
-        self.is_own_entropy = False
         self.learning_method = None
         self.start_state = None
         self.current_state = None
