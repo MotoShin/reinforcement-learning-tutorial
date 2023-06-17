@@ -1,17 +1,27 @@
-from gym.envs.toy_text.frozen_lake import FrozenLakeEnv
+import gym
+import numpy as np
 from abc import ABCMeta, abstractmethod
 
 STEP_RESULT = int, float, bool
 
 
-class BaseEnvironment(FrozenLakeEnv, metaclass=ABCMeta):
+class BaseEnvironment(metaclass=ABCMeta):
     """
     Environmentのbaseクラス
     """
 
     @abstractmethod
     def __init__(self, desc: list):
-        super().__init__(desc, is_slippery=False)
+        self.env = gym.make('FrozenLake-v1', desc=desc, is_slippery=False)
+        
+        self.desc = desc = np.asarray(desc, dtype="c")
+        self.nrow, self.ncol = nrow, ncol = desc.shape
+
+        self.nA = 4
+        self.nS = nrow * ncol
+
+        self.isd = np.array(desc == b"S").astype("float64").ravel()
+        self.isd /= self.isd.sum()
         pass
 
     def reset(self) -> None:
@@ -19,7 +29,7 @@ class BaseEnvironment(FrozenLakeEnv, metaclass=ABCMeta):
         環境の状態をリセットする
         :return: None
         """
-        super().reset()
+        self.s = self.env.reset()[0]
 
     def step(self, a) -> STEP_RESULT:
         """
@@ -27,7 +37,8 @@ class BaseEnvironment(FrozenLakeEnv, metaclass=ABCMeta):
         :param a: int エージェントが行う行動
         :return: s: int 次状態, r: float 報酬, d: bool doneフラグ
         """
-        next_state, reward, done, _ = super().step(a)
+        next_state, reward, done, _, _ = self.env.step(a)
+        self.s = next_state
         return next_state, reward, done
 
     @abstractmethod
