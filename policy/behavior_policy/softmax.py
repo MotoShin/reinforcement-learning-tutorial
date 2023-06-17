@@ -1,6 +1,6 @@
 import numpy as np
 import random
-import math
+from scipy.stats import entropy
 from policy.behavior_policy.base_behavior_policy import BaseBehaviorPolicy
 
 
@@ -34,14 +34,10 @@ class Softmax(BaseBehaviorPolicy):
         :param ary: ndarray
         :return: 選択した配列のindexの値 int
         """
-        entropy = 0
-
-        probs = self._softmax(ary)
-        for p in probs:
-            if p > 0:
-                entropy -= p * math.log(p)
-
-        return entropy
+        if np.sum(ary) == 0:
+            return 0
+        else:
+            return entropy(np.array(ary), base=len(ary))
 
     def _softmax(self, ary: np.ndarray) -> list:
         """
