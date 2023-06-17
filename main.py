@@ -22,10 +22,12 @@ if __name__ == '__main__':
             print("Simulation name is \"gridWorld\" or \"cliffWalk\".")
             exit()
 
-    rewards, steps = simulator.exec()
+    rewards, steps, entropy = simulator.exec()
 
     Util.output_csv(rewards, "result/reward.csv")
     Util.output_csv(steps, "result/steps.csv")
+    Util.output_csv(entropy, "result/entropy.csv")
 
     Util.output_image("reward")
     Util.output_image("steps")
+    Util.output_image("entropy")

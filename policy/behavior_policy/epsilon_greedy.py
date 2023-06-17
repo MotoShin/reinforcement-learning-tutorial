@@ -1,8 +1,9 @@
 import numpy as np
 import random
+from policy.behavior_policy.base_behavior_policy import BaseBehaviorPolicy
 
 
-class EpsilonGreedy(object):
+class EpsilonGreedy(BaseBehaviorPolicy):
     """
     EpsilonGreedyの処理内容が書かれているクラス
     epsilon, decrease_value, terminal_valueを全て0にするとgreedyになる
@@ -21,7 +22,7 @@ class EpsilonGreedy(object):
         """
         self.epsilon = self.first_epsilon
 
-    def update_epsilon(self) -> None:
+    def update(self) -> None:
         """
         Epsilonの値を更新する
         :return: None

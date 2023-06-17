@@ -8,10 +8,8 @@ class SarsaAgent(BaseAgent):
     """
 
     def __init__(self, all_state_num: int, all_action_num: int):
+        super().__init__()
         self.learning_method = Sarsa(all_state_num, all_action_num)
-        self.start_state = None
-        self.current_state = None
-        self.current_action = None
         self.memory_action = None
 
     def reset(self) -> None:
@@ -22,20 +20,21 @@ class SarsaAgent(BaseAgent):
         if self.memory_action is not None:
             self.current_action = self.memory_action
         else:
-            self.current_action = self.learning_method.target_policy.choose(self.current_state)
+            self.current_action = self.learning_method.target_policy.choose(
+                self.current_state
+            )
         return self.current_action
 
     def update_policy(self, reward: int, next_state: int) -> None:
-        self.learning_method.update(self.current_state,
-                                    self.current_action,
-                                    reward,
-                                    next_state)
+        self.learning_method.update(
+            self.current_state, self.current_action, reward, next_state
+        )
         self.current_state = next_state
         self.memory_action = self.learning_method.target_policy.choose(next_state)
 
     def update_behavior_policy(self) -> None:
         self.learning_method.update_behavior_policy()
-        self.current_state = None
+        self.current_state = self.start_state
         self.memory_action = None
 
     def get_agent_name(self) -> str:
@@ -43,3 +42,6 @@ class SarsaAgent(BaseAgent):
 
     def set_start_state(self, start_state: int) -> None:
         self.start_state = start_state
+
+    def get_entropy(self) -> float:
+        return self.learning_method.target_policy.get_entropy(self.current_state)

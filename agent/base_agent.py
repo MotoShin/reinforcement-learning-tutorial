@@ -6,6 +6,12 @@ class BaseAgent(metaclass=ABCMeta):
     Agentのinterfaceを記述するクラス
     """
 
+    def __init__(self) -> None:
+        self.learning_method = None
+        self.start_state = None
+        self.current_state = None
+        self.current_action = None
+
     @abstractmethod
     def reset(self) -> None:
         """

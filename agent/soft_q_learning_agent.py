@@ -1,15 +1,15 @@
-from policy.learning_method.off_policy.q_learning import QLearning
+from policy.learning_method.off_policy.soft_q_learning import SoftQLearning
 from agent.base_agent import BaseAgent
 
 
-class QLearningAgent(BaseAgent):
+class SoftQLearningAgent(BaseAgent):
     """
     Q学習のエージェントのクラス
     """
 
     def __init__(self, all_state_num: int, all_action_num: int):
         super().__init__()
-        self.learning_method = QLearning(all_state_num, all_action_num)
+        self.learning_method = SoftQLearning(all_state_num, all_action_num)
 
     def reset(self) -> None:
         self.current_state = self.start_state
@@ -31,11 +31,11 @@ class QLearningAgent(BaseAgent):
         self.learning_method.update_behavior_policy()
         self.current_state = self.start_state
 
+    def get_entropy(self) -> float:
+        return self.learning_method.target_policy.get_entropy(self.current_state)
+
     def get_agent_name(self) -> str:
         return self.learning_method.get_learning_method_name()
 
     def set_start_state(self, start_state: int) -> None:
         self.start_state = start_state
-
-    def get_entropy(self) -> float:
-        return self.learning_method.target_policy.get_entropy(self.current_state)
