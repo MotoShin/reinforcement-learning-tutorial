@@ -37,10 +37,12 @@ class BaseSimulator(object):
         """
         rewards = {}
         steps = {}
+        entropy = {}
         # エージェントの数だけ回すfor文
         for agent in self.agents:
             sum_rewards = np.zeros(self.all_episode_number)
             sum_steps = np.zeros(self.all_episode_number)
+            sum_entropies = np.zeros(self.all_episode_number)
             # シミュレーションを回すfor文
             for simulation_number in range(self.all_simulate_number):
                 display_simulation_number = simulation_number + 1
@@ -58,11 +60,14 @@ class BaseSimulator(object):
                 # エピソードを回すfor文
                 for episode in range(self.all_episode_number):
                     sum_reward = 0
+                    sum_entropy = 0.0
                     self.env.reset()
 
                     # 1エピソードの処理を行うループ
                     while True:
                         chosen_action = agent.act()
+                        if agent.is_own_entropy:
+                            sum_entropy += agent.get_entropy()
                         next_state, reward, done = self.env.step(chosen_action)
                         agent.update_policy(reward, next_state)
                         sum_reward += reward
@@ -73,13 +78,18 @@ class BaseSimulator(object):
                     sum_rewards[episode] += sum_reward
                     # ステップ数を記録（加算）
                     sum_steps[episode] += self.env.get_all_step_num()
+                    # エントロピーを記録
+                    if agent.is_own_entropy:
+                        sum_entropies[episode] += sum_entropy / self.env.get_all_step_num()
                     # 挙動方策のupdate
                     agent.update_behavior_policy()
 
             # それぞれの記録した値のsimulation数での平均値を求める
             rewards.update({agent.get_agent_name(): sum_rewards / self.all_simulate_number})
             steps.update({agent.get_agent_name(): sum_steps / self.all_simulate_number})
+            if agent.is_own_entropy:
+                entropy.update({agent.get_agent_name(): sum_entropies / self.all_simulate_number})
             # 進捗表示のバーのための改行
             print()
 
-        return rewards, steps
+        return rewards, steps, entropy
