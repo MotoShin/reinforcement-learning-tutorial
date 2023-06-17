@@ -3,4 +3,4 @@
 cd ~/
 
 # pip install
-pip install numpy matplotlib pandas seaborn gym
+pip install numpy matplotlib pandas seaborn gym scipy
