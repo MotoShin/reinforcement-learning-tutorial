@@ -32,7 +32,7 @@ class EpsilonGreedyTargetPolicy:
         挙動方策のパラメータの更新
         :return: None
         """
-        self.behavior_policy.update_epsilon()
+        self.behavior_policy.update()
 
     def choose(self, state: int) -> int:
         """

@@ -8,11 +8,8 @@ class SarsaAgent(BaseAgent):
     """
 
     def __init__(self, all_state_num: int, all_action_num: int):
+        super().__init__()
         self.learning_method = Sarsa(all_state_num, all_action_num)
-        self.start_state = None
-        self.current_state = None
-        self.current_action = None
-        self.memory_action = None
 
     def reset(self) -> None:
         self.current_state = self.start_state
@@ -35,7 +32,7 @@ class SarsaAgent(BaseAgent):
 
     def update_behavior_policy(self) -> None:
         self.learning_method.update_behavior_policy()
-        self.current_state = None
+        self.current_state = self.start_state
         self.memory_action = None
 
     def get_agent_name(self) -> str:

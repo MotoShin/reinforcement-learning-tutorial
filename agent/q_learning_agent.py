@@ -8,10 +8,8 @@ class QLearningAgent(BaseAgent):
     """
 
     def __init__(self, all_state_num: int, all_action_num: int):
+        super().__init__()
         self.learning_method = QLearning(all_state_num, all_action_num)
-        self.start_state = None
-        self.current_state = None
-        self.current_action = None
 
     def reset(self) -> None:
         self.current_state = self.start_state
@@ -30,7 +28,7 @@ class QLearningAgent(BaseAgent):
 
     def update_behavior_policy(self) -> None:
         self.learning_method.update_behavior_policy()
-        self.current_state = None
+        self.current_state = self.start_state
 
     def get_agent_name(self) -> str:
         return self.learning_method.get_learning_method_name()
